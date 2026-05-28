@@ -3,21 +3,6 @@ variable "aws_region" {
   default = "us-east-1"
 }
 
-variable "networking_source" {
-  type    = string
-  default = "./modules/networking"
-}
-
-variable "compute_source" {
-  type    = string
-  default = "./modules/compute"
-}
-
-variable "storage_source" {
-  type    = string
-  default = "./modules/storage"
-}
-
 variable "vpc_name" {
   type    = string
   default = "red-empresa"
