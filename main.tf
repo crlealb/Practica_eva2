@@ -18,14 +18,14 @@ provider "aws" {
 }
 
 module "network" {
-  source = "github.com/crlealb/ep2-terraform-network?ref=0.1.0"
+  source = "git::https://github.com/crlealb/Practica_eva2.git//modules/networking?ref=0.1.0"
 
   vpc_name = var.vpc_name
   tags     = var.tags
 }
 
 module "compute" {
-  source = "github.com/crlealb/ep2-terraform-compute?ref=0.1.0"
+  source = "git::https://github.com/crlealb/Practica_eva2.git//modules/compute?ref=0.1.0"
 
   vpc_id             = module.network.vpc_id
   subnet_id          = module.network.public_subnet_id
@@ -47,7 +47,7 @@ module "compute" {
 }
 
 module "storage" {
-  source = "github.com/crlealb/ep2-terraform-storage?ref=0.1.0"
+  source = "git::https://github.com/crlealb/Practica_eva2.git//modules/storage?ref=0.1.0"
 
   bucket_prefix = var.bucket_prefix
   bucket_name   = var.bucket_name
