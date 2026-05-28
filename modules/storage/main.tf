@@ -1,15 +1,27 @@
-# Módulo de almacenamiento: bucket S3 con versionado y bloqueo de acceso público.
 resource "random_id" "sufijo" {
   byte_length = var.suffix_byte_length
 }
 
 resource "aws_s3_bucket" "almacenamiento" {
   bucket = "${var.bucket_prefix}-${random_id.sufijo.hex}"
-  acl    = "private"
 
   tags = merge(var.tags, {
     Name = var.bucket_name
   })
+}
+
+resource "aws_s3_bucket_ownership_controls" "almacenamiento_ownership" {
+  bucket = aws_s3_bucket.almacenamiento.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+resource "aws_s3_bucket_acl" "almacenamiento_acl" {
+  depends_on = [aws_s3_bucket_ownership_controls.almacenamiento_ownership]
+
+  bucket = aws_s3_bucket.almacenamiento.id
+  acl    = "private"
 }
 
 resource "aws_s3_bucket_versioning" "versionado" {

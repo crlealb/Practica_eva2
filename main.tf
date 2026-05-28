@@ -27,7 +27,6 @@ module "network" {
 module "compute" {
   source = "git::https://github.com/crlealb/Practica_eva2.git//modules/compute?ref=0.1.0"
 
-  vpc_id             = module.network.vpc_id
   subnet_id          = module.network.public_subnet_id
   security_group_ids = [module.network.security_group_id]
 
